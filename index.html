@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Khavkin – Ph.D. Candidate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+
+   <style>
+    /* ─── Tokens ────────────────────────────────────────────── */
+    :root {
+      font-size: 118%;          /* 1rem = ~18.9 px (up from 16 px). All rem values scale proportionally. */
+      --bg:        #fafaf8;
+      --text:      #1a1a18;
+      --muted:     #6b6b65;
+      --accent:    #2a5c8a;
+      --border:    #e2e2dc;
+      --max-w: min(1000px, 88vw);
+      --serif:     "EB Garamond", Georgia, serif;
+      --sans:      "DM Sans", system-ui, sans-serif;
+    }
+ 
+    /* ─── Reset & Base ──────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: var(--sans);
+      font-size: clamp(1.1rem, 1.25vw, 1.5rem);
+      line-height: 1.75;
+      background: var(--bg);
+      color: var(--text);
+    }
+ 
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+ 
+    /* ─── Layout wrapper ────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+ 
+    /* ─── Nav ───────────────────────────────────────────────── */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    nav .brand {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-right: auto;
+    }
+    nav a {
+      font-size: 1.1rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    nav a:hover { color: var(--accent); text-decoration: none; }
+ 
+    /* ─── Hero / Bio ────────────────────────────────────────── */
+    .hero { padding: 56px 0 48px; }
+    .hero-inner {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+    }
+    .hero-photo {
+      width: 150px;
+      min-width: 150px;
+      border-radius: 4px;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.1rem, 3.1vw, 2.7rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .hero-text .position {
+      font-size: 0.89rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .hero-text p {
+      font-size: 1.0rem;
+      color: var(--text);
+      margin-bottom: 14px;
+      max-width: 100%;
+    }
+ 
+    /* Social links */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 1rem;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .social-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+ 
+    /* ─── Sections (shared) ─────────────────────────────────── */
+    section {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    section h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 1.9vw, 2.1rem);
+      font-weight: 400;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+    section h2 a {
+      font-size: 0.95rem;
+      font-family: var(--sans);
+      margin-left: 10px;
+      vertical-align: middle;
+      color: var(--muted);
+    }
+ 
+    /* ─── Publications ──────────────────────────────────────── */
+    .pub-group-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 32px 0 16px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-group-label:first-child { margin-top: 0; }
+ 
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .pub {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .pub-thumb {
+      width: clamp(100px, 14vw, 160px);
+      min-width: clamp(100px, 14vw, 160px);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      background: #ededea;
+    }
+    .pub-info h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 500;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .pub-authors {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .pub-venue {
+      font-size: 1rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .pub-venue .year {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .pub-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pub-links a {
+      font-size: 0.95rem;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+    .pub-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+ 
+    /* ─── Tools ─────────────────────────────────────────────── */
+    .tool-card {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: #fff;
+    }
+    .tool-screenshot {
+      width: clamp(100px, 14vw, 160px);
+      min-width: clamp(100px, 14vw, 160px);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      background: #ededea;
+    }
+    .tool-info h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .tool-info p {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .tool-links {
+      display: flex;
+      gap: 8px;
+    }
+    .tool-links a {
+      font-size: 1rem;
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+    }
+    .tool-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+ 
+    /* ─── Teaching ──────────────────────────────────────────── */
+    .teaching-group {
+      margin-bottom: 28px;
+    }
+    .teaching-group:last-child { margin-bottom: 0; }
+ 
+    /* Same pill-label style as .pub-group-label */
+    .teaching-group-label {
+      font-size: 0.90rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+ 
+    .teaching-subgroup {
+      margin-bottom: 14px;
+    }
+    .teaching-subgroup:last-child { margin-bottom: 0; }
+ 
+    .teaching-institution {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .teaching-institution .level {
+      font-weight: 400;
+      color: var(--muted);
+    }
+ 
+    .teaching-courses {
+      list-style: disc;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .teaching-courses li {
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .teaching-courses li .years {
+      color: var(--muted);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+ 
+    /* ─── Service ───────────────────────────────────────────── */
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .service-item {
+      display: flex;
+      gap: 16px;
+      font-size: 1rem;
+      align-items: baseline;
+    }
+    .service-role {
+      min-width: 130px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+ 
+    /* ─── News ──────────────────────────────────────────────── */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .news-item {
+      display: flex;
+      gap: 16px;
+      font-size: 0.95rem;
+    }
+    .news-date {
+      min-width: 80px;
+      color: var(--muted);
+      font-size: 0.90rem;
+      padding-top: 1px;
+    }
+ 
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-align: center;
+    }
+ 
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 540px) {
+      .hero-inner        { flex-direction: column; }
+      .hero-photo        { width: 120px; }
+      .pub               { flex-direction: column; }
+      .pub-thumb         { width: 100%; aspect-ratio: 16/9; }
+      .tool-card         { flex-direction: column; }
+      .tool-screenshot   { width: 100%; }
+      .service-item      { flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────── -->
+  <nav>
+    <div class="container">
+      <a class="brand" href="#">Michael Khavkin</a>
+      <a href="#publications">Publications</a>
+      <!-- <a href="#news">News</a> -->
+      <a href="#tools">Tools</a>
+      <a href="#service">Service</a>
+      <a href="#teaching">Teaching</a>
+      <a href="data/CV.pdf" target="_blank">CV</a>
+      <a href="mailto:khavkin1@mail.tau.ac.il">Contact</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ── Hero ─────────────────────────────────────────────── -->
+    <section class="hero" style="border-top: none; padding-top: 56px;">
+      <div class="hero-inner">
+        <img
+          class="hero-photo"
+          src="images/Michael_image2.JPG"
+          alt="Michael Khavkin"
+        />
+        <div class="hero-text">
+          <h1>👋 Hi, I am Michael Khavkin</h1>
+          <p class="position">
+          <p>
+            I am a Ph.D. candidate at the <a href="https://toch.tau.ac.il/" target="_blank">Interacting With Technology (IWiT)</a> lab in the <a href="https://en-engineering.tau.ac.il/Department-of-Industrial-Engineering/main/" target="_blank">School of Industrial & Intelligent Systems Engineering</a> at <a href="https://english.tau.ac.il/" target="_blank">Tel Aviv University</a>.,
+            advised by <a href="https://toch.tau.ac.il/" target="_blank">Prof. Eran Toch</a>.
+          </p>
+
+          <p>
+            My work studies the intersection of
+            <strong>differential privacy</strong>, <strong>machine learning</strong>,
+            and <strong>human-computer interaction</strong>, asking a question that
+            formal privacy guarantees alone cannot answer:
+            <em>How does differential privacy protection shape the way people share data, and how do those decisions feed back into the AI systems built on it?</em>
+            I see this intersection from a human-centered perspective that combines privacy, AI algorithmic design, and human factors.
+            My work explores how to design AI-powered systems that align user's privacy preferences with privacy guarantees and how to design explainability mechanisms that help users understand and control their privacy risks in these systems.
+          </p>
+
+        <p>
+          My Ph.D. research examined privacy across three settings:
+          how <strong>differential privacy</strong> mechanisms shape users' <strong>data-disclosure decisions</strong> and the models trained on their data;
+          how <strong>explainability</strong> can be preserved in differentially private
+          <strong>federated learning</strong> systems; and how <strong>inferential privacy</strong> leakage in <strong>LLM-powered assistants</strong> shapes user disclosure behavior, and how it can be communicated to users.
+          Across all three, I combine algorithm design, quantitative user studies, and tool-building.
+        </p>
+          
+          <div class="social-links">
+            <a href="https://scholar.google.com/citations?user=scUF_rEAAAAJ&hl=en&oi=ao" target="_blank">🎓 Scholar</a>
+            <a href="mailto:khavkin1@mail.tau.ac.il">✉️ Email</a>
+            <a href="https://www.linkedin.com/in/michael-k-221973161/" target="_blank">🔗 LinkedIn</a>
+            <a href="https://github.com/michaelkhavkin" target="_blank">🔗 GitHub</a>
+            <!-- Add or remove social links as needed -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- ── Publications ──────────────────────────────────────── -->
+    <section id="publications">
+      <h2>
+        Publications
+        <a href="https://scholar.google.com/citations?user=scUF_rEAAAAJ&hl=en&oi=ao" target="_blank">↗ Full list on Google Scholar</a>
+      </h2>
+ 
+      <!-- ·· Journal Articles ·· -->
+      <p class="pub-group-label">Journal and Conference Articles</p>
+      <div class="pub-list">
+ 
+        <div class="pub">
+          <!-- Replace src with a screenshot of the paper's first page -->
+          <img class="pub-thumb" src="images/tkde-dp-survey-screenshot.png" alt="" />
+          <div class="pub-info">
+            <h3>Differential Privacy Configurations in the Real World: A Comparative Analysis</h3>
+            <p class="pub-authors"><strong>M. Khavkin</strong> &amp; E. Toch</p>
+            <p class="pub-venue">
+              IEEE Transactions on Knowledge and Data Engineering
+              · <span class="year">2025</span>
+            </p>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1109/TKDE.2025.3603731" target="_blank">Paper</a>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="pub">
+          <img class="pub-thumb" src="images/decision-support-systems-paper-screenshot.png" alt="" />
+          <div class="pub-info">
+            <h3>Investigating the Impact of Differential Privacy Obfuscation on Users' Data Disclosure Decisions</h3>
+            <p class="pub-authors"><strong>M. Khavkin</strong> &amp; E. Toch</p>
+            <p class="pub-venue">
+              Decision Support Systems
+              · <span class="year">2025</span>
+            </p>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1016/j.dss.2025.114474" target="_blank">Paper</a>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="pub">
+          <img class="pub-thumb" src="images/twitter-discource-about-chatgpt-screenshot.png" alt="" />
+          <div class="pub-info">
+            <h3>ChatGPT in the Public Eye: Ethical Principles and Generative Concerns in Social Media Discussions</h3>
+            <p class="pub-authors">M. Cohen, <strong>M. Khavkin</strong>, D. Movsowitz Davidow &amp; E. Toch</p>
+            <p class="pub-venue">
+              New Media &amp; Society
+              · <span class="year">2024</span>
+            </p>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1177/14614448241279034" target="_blank">Paper</a>
+              <a href="https://github.com/michaelkhavkin/GPTalyze" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+
+         <div class="pub">
+          <img class="pub-thumb" src="images/valuation-DP-conjoint-analysis-ifip2022-screenshot.png" alt="" />
+          <div class="pub-info">
+            <h3>Valuation of Differential Privacy Budget in Data Trade: A Conjoint Analysis</h3>
+            <p class="pub-authors"><strong>M. Khavkin</strong> &amp; E. Toch</p>
+            <p class="pub-venue">
+              IFIP Summer School on Privacy and Identity Management
+              · <span class="year">2023</span>
+            </p>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1007/978-3-031-31971-6_7" target="_blank">Paper</a>
+              <a href="https://github.com/michaelkhavkin/valuating_differential_privacy_budget" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+      </div><!-- /journal pub-list -->
+ 
+      <!-- ·· Conference Papers ··
+      <p class="pub-group-label" style="margin-top: 36px;">Conference Papers</p>
+      <div class="pub-list">
+  -->
+      <!-- </div>/conference pub-list -->
+    </section>
+ 
+    <!-- ── Tools ─────────────────────────────────────────────── -->
+    <section id="tools">
+      <h2>Tools</h2>
+      <div class="tool-card">
+        <!-- Replace src with a screenshot of the tool's UI -->
+        <img
+          class="tool-screenshot"
+          src="images/privacy-ext-data-tool-screenshot.png"
+        />
+        <div class="tool-info">
+          <!-- Replace the name and description below with your own -->
+          <h3>LLM Inferential Privacy Mirror</h3>
+          <p>
+            A browser-based tool that shows users, in real time, what an LLM-powered chatbot can infer about them from their conversations and lets <strong>differential privacy</strong> limit that exposure.
+            Built as a research prototype to study <strong>inferential privacy leakage</strong> in AI assistants.
+          </p>
+          <div class="tool-links">
+            <a href="https://huggingface.co/spaces/michael2222222/Interacting-With-LLMs/tree/main" target="_blank">Code</a>
+            <!-- Uncomment the line below if you have a live demo -->
+            <a href="https://huggingface.co/spaces/michael2222222/Interacting-With-LLMs?token=x&scenario_mode=persona1&model=Gemini-2.5-Flash&rag=1&epsilon=inf&show_settings=0&show_tips=1&show_pii_highlights=1&show_rag_highlights=1&show_upload_data=0&show_social_scraping=0&enable_social_scraping=0&demo=0&show_risk=1&show_dp=1&show_infr_attr_card=1&__theme=light" target="_blank">▶ Demo</a>
+          </div>
+        </div>
+      </div>
+      <br/>
+
+      <div class="tool-card">
+        <!-- Replace src with a screenshot of the tool's UI -->
+        <img
+          class="tool-screenshot"
+          src="images/Explainability-FL-gradcam-screenshot1.png"
+          alt="FL-DP-XAI Viewer (Explainability in Differential Private Federated Learning)"/>
+        <div class="tool-info">
+          <!-- Replace the name and description below with your own -->
+          <h3>FL-DP-XAI Viewer (Explainability in Differential Private Federated Learning)</h3>
+          <p>
+              An interactive visualization tool for exploring the trade-off between
+              <strong>differential privacy</strong> and <strong>explainability</strong> in federated image classifiers.
+              Designed to support clinicians in understanding how privacy constraints affect model transparency in <strong>clinical decision-support</strong> systems.
+          </p>
+          <div class="tool-links">
+            <a href="https://github.com/michaelkhavkin/FL-DP-XAI-viewer" target="_blank">Code</a>
+            <!-- Uncomment the line below if you have a live demo -->
+            <!-- <a href="" target="_blank">▶ Demo</a> -->
+          </div>
+        </div>
+      </div>
+
+      <br/>
+      <div class="tool-card">
+        <!-- Replace src with a screenshot of the tool's UI -->
+        <img
+          class="tool-screenshot"
+          src="images/confusion_matrix_twitter_sentiment_analysis.png"
+          alt="GPTalyze - Text Snippet Analysis with ChatGPT"/>
+        <div class="tool-info">
+          <!-- Replace the name and description below with your own -->
+          <h3>GPTalyze - Text Snippet Analysis with ChatGPT</h3>
+          <p>
+              A Jupyter notebook pipeline for large-scale NLP analysis of short text using the ChatGPT API. Supports <strong>sentiment analysis</strong>,
+              <strong>emotion detection</strong>, and <strong>topic extraction</strong> via zero-shot prompting.
+              Developed as a research instrument for studying public discourse around generative AI on social media.
+          </p>
+          <div class="tool-links">
+            <a href="https://github.com/michaelkhavkin/analyze-chatgpt-discourse-in-twitter" target="_blank">Code</a>
+            <!-- Uncomment the line below if you have a live demo -->
+            <!-- <a href="" target="_blank">▶ Demo</a> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+  <!-- ── Service ────────────────────────────────────────────── -->
+    <section id="service">
+      <h2>Service</h2>
+      <div class="service-list">
+        <div class="service-item">
+          <span class="service-role">SC Assistant</span>
+          <span>
+            <a href="https://chi2026.acm.org/authors/papers/selecting-a-subcommittee/#privacy" target="_blank">"Privacy and Security" subcommittee</a> at
+            <a href="https://chi2025.acm.org" target="_blank">ACM CHI 2025</a>
+            &amp;
+            <a href="https://chi2026.acm.org" target="_blank">ACM CHI 2026</a>
+          </span>
+        </div>
+         <div class="service-item">
+          <span class="service-role">Reviewer</span>
+          <a href="https://icml.cc/Conferences/2024" target="_blank">ICML 2024</a> (1 paper),
+          <a href="https://chi2023.acm.org/" target="_blank">CHI 2023</a> (2 paper),
+          <a href="https://www.sciencedirect.com/journal/journal-of-information-security-and-applications/vol/40/suppl/C" target="_blank">JISA 2018</a> (1 paper)
+          </span>
+        </div>
+        <!-- Add more service items here as needed -->
+      </div>
+    </section>
+ 
+
+ <!-- ── Teaching ───────────────────────────────────────────── -->
+    <section id="teaching">
+      <h2>Teaching</h2>
+ 
+      <!-- ·· Lecturer ·· -->
+      <div class="teaching-group">
+        <p class="teaching-group-label">Lecturer</p>
+ 
+        <div class="teaching-subgroup">
+          <p class="teaching-institution">
+            Tel Aviv University &nbsp;·&nbsp;
+            <span class="level">Undergraduate students</span>
+          </p>
+          <ul class="teaching-courses">
+            <li>
+              <span>Design of Database Systems</span>
+              <span class="years">2026</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+ 
+      <!-- ·· Teaching Assistant ·· -->
+      <div class="teaching-group">
+        <p class="teaching-group-label">Teaching Assistant</p>
+ 
+        <!-- Undergraduate -->
+        <div class="teaching-subgroup">
+          <p class="teaching-institution">
+            Ben-Gurion University of the Negev &amp; Tel Aviv University &nbsp;·&nbsp;
+            <span class="level">Undergraduate students</span>
+          </p>
+          <ul class="teaching-courses">
+            <li><span>Big Data Engineering</span>                          <span class="years">2023–2026</span></li>
+            <li><span>Information Retrieval and Recommender Systems</span> <span class="years">2024–2026</span></li>
+            <li><span>Design of Database Systems</span>                    <span class="years">2023</span></li>
+            <li><span>Analysis and Design of Information Systems</span>    <span class="years">2022</span></li>
+            <li><span>Data Ethics</span>                                   <span class="years">2024</span></li>
+            <li><span>Statistical Foundations of Data Science</span>       <span class="years">2024</span></li>
+            <li><span>Data Mining and Data Warehousing</span>              <span class="years">2017–2018</span></li>
+            <li><span>Algorithms</span>                                    <span class="years">2017–2018</span></li>
+          </ul>
+        </div>
+ 
+        <!-- Graduate -->
+        <div class="teaching-subgroup">
+          <p class="teaching-institution">
+            Tel Aviv University &nbsp;·&nbsp;
+            <span class="level">Graduate students</span>
+          </p>
+          <ul class="teaching-courses">
+            <li>
+              <span>Big Data Technologies and Databases</span>
+              <span class="years">2023–2026</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+ 
+    </section>
+ 
+    <!-- ── News ────────────────────────────────────────────────
+    <section id="news">
+      <h2>News</h2>
+      <div class="news-list">
+        <div class="news-item">
+          <span class="news-date">2025</span>
+          <span>
+            Paper accepted to
+            <em>IEEE Transactions on Knowledge and Data Engineering</em> 🎉
+          </span>
+        </div>
+        <div class="news-item">
+          <span class="news-date">2025</span>
+          <span>
+            Paper accepted to <em>Decision Support Systems</em> 🎉
+          </span>
+        </div>
+        <Add news items in reverse chronological order
+      </div>
+    </section> -->
+ 
+  </div><!-- /container -->
+ 
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Michael Khavkin ·
+      Last updated <span id="last-updated"></span>
+    </div>
+  </footer>
+ 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.getElementById("year").textContent
