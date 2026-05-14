@@ -69,7 +69,6 @@
     }
     nav a {
       font-size: 1.1rem;
-      color: var(--muted);
       letter-spacing: 0.02em;
     }
     nav a:hover { color: var(--accent); text-decoration: none; }
@@ -190,12 +189,12 @@
     }
     .pub-authors {
       font-size: 1rem;
-      color: var(--muted);
+      color: #4d4d49;
       margin-bottom: 3px;
     }
     .pub-venue {
       font-size: 1rem;
-      color: var(--muted);
+      color: #4d4d49;
       font-style: italic;
       margin-bottom: 8px;
     }
@@ -249,7 +248,7 @@
     }
     .tool-info p {
       font-size: 1rem;
-      color: var(--muted);
+      color: #4d4d49;
       margin-bottom: 10px;
       line-height: 1.6;
     }
@@ -563,6 +562,28 @@
         <!-- Replace src with a screenshot of the tool's UI -->
         <img
           class="tool-screenshot"
+          src="images/elector-dp-screenshot.png"
+          alt="Differentially Private Election Campaign Management"/>
+        <div class="tool-info">
+          <!-- Replace the name and description below with your own -->
+          <h3>Differentially Private Election Campaign Management</h3>
+          <p>
+              A web-based interface for managing election campaigns with differential privacy guarantees.
+              Enables campaign managers to encourage potential voters to vote and <strong>analyze voter data statistics</strong> on the election day while ensuring that individual voter information remains protected through <strong>differential privacy</strong> mechanisms.
+          </p>
+          <div class="tool-links">
+            <a href="https://github.com/michaelkhavkin/elector-dp-app" target="_blank">Code</a>
+            <!-- Uncomment the line below if you have a live demo -->
+            <a href="https://huggingface.co/spaces/michael2222222/elector-dp-app" target="_blank">▶ Demo</a>
+          </div>
+        </div>
+      </div>
+      
+      <br/>
+      <div class="tool-card">
+        <!-- Replace src with a screenshot of the tool's UI -->
+        <img
+          class="tool-screenshot"
           src="images/Explainability-FL-gradcam-screenshot1.png"
           alt="FL-DP-XAI Viewer (Explainability in Differential Private Federated Learning)"/>
         <div class="tool-info">
@@ -580,8 +601,9 @@
           </div>
         </div>
       </div>
-
       <br/>
+      
+
       <div class="tool-card">
         <!-- Replace src with a screenshot of the tool's UI -->
         <img
