@@ -12,7 +12,7 @@
    <style>
     /* ─── Tokens ────────────────────────────────────────────── */
     :root {
-      font-size: 118%;          /* 1rem = ~18.9 px (up from 16 px). All rem values scale proportionally. */
+      font-size: 106%;          /* 1rem = ~17 px (up from 16 px). All rem values scale proportionally. */
       --bg:        #fafaf8;
       --text:      #1a1a18;
       --muted:     #6b6b65;
@@ -20,6 +20,11 @@
       --border:    #e2e2dc;
       --max-w: min(1000px, 88vw);
       --serif:     "EB Garamond", Georgia, serif;
+      /* multi-hue wash used for the link-pill borders (Paper / Poster / Code / Demo).
+         Stops are repeated so the ramp can slide sideways without a visible seam. */
+      --pill-gradient: linear-gradient(100deg,
+        #4f88b8 0%, #5d9a72 14%, #c08a3c 28%, #8f6fae 42%,
+        #4f88b8 50%, #5d9a72 64%, #c08a3c 78%, #8f6fae 92%, #4f88b8 100%);
       --sans:      "DM Sans", system-ui, sans-serif;
     }
  
@@ -28,7 +33,7 @@
  
     body {
       font-family: var(--sans);
-      font-size: clamp(1.1rem, 1.25vw, 1.5rem);
+      font-size: clamp(1rem, 1.15vw, 1.2rem);
       line-height: 1.75;
       background: var(--bg);
       color: var(--text);
@@ -112,22 +117,99 @@
       margin-top: 6px;
     }
     .social-links a {
+      --pill-fill: var(--bg);            /* pills sit on the page background here */
       display: inline-flex;
       align-items: center;
       gap: 5px;
       font-size: 1rem;
       padding: 4px 10px;
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      color: var(--muted);
-      transition: border-color 0.15s, color 0.15s;
+      border: 1.5px solid transparent;
+      border-radius: 4px;
+      color: #4d4d49;
+      background:
+        linear-gradient(var(--pill-fill), var(--pill-fill)) padding-box,
+        var(--pill-gradient) border-box;
+      background-size: 100% 100%, 200% 100%;
+      background-position: 0 0, 0 0;
+      transition: color 0.15s, box-shadow 0.2s, transform 0.2s;
     }
     .social-links a:hover {
-      border-color: var(--accent);
       color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 7px rgba(42, 92, 138, 0.18);
       text-decoration: none;
+      animation: pill-shift 2.4s linear infinite;
     }
  
+    /* ─── Availability badge ────────────────────────────────── */
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 2px 0 18px;
+      padding: 3px 12px 3px 10px;
+      font-size: 0.85rem;
+      color: #3f5c39;
+      background: #f2f7ef;
+      border: 1px solid #c3d6ba;
+      border-radius: 999px;
+    }
+    .availability::before {          /* the "open" indicator dot */
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6d9c5e;
+      animation: avail-pulse 2.8s ease-in-out infinite;
+    }
+    @keyframes avail-pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(109, 156, 94, 0.20); }
+      50%      { box-shadow: 0 0 0 5px rgba(109, 156, 94, 0.06); }
+    }
+
+    /* ─── Research agenda callout ───────────────────────────── */
+    .agenda {
+      margin: 20px 0 16px;
+      padding-left: 16px;
+      /* Only the left border has width, so the gradient border-image
+         shows up as a single delicate multi-hue spine. */
+      border-style: solid;
+      border-width: 0 0 0 2px;
+      border-image: linear-gradient(180deg, #4f88b8, #5d9a72, #c08a3c, #8f6fae) 1;
+    }
+    .hero-text .agenda-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .hero-text .agenda p:last-child { margin-bottom: 0; }
+
+    /* ─── Awards ────────────────────────────────────────────── */
+    .award-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .award-item {
+      display: flex;
+      gap: 16px;
+      font-size: 1rem;
+      align-items: baseline;
+    }
+    .award-year {
+      min-width: 70px;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .award-body {
+      color: var(--muted);
+      font-style: italic;
+    }
+
     /* ─── Sections (shared) ─────────────────────────────────── */
     section {
       padding: 40px 0;
@@ -209,16 +291,28 @@
       flex-wrap: wrap;
     }
     .pub-links a {
+      --pill-fill: var(--bg);            /* pills sit on the page background here */
       font-size: 0.95rem;
-      padding: 2px 8px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--muted);
+      padding: 3px 9px;
+      border: 1.5px solid transparent;
+      border-radius: 4px;
+      color: #4d4d49;
+      /* Two background layers: the flat fill is clipped to the padding box, so the
+         gradient below it is only visible in the border ring. The gradient layer is
+         drawn 200% wide so hover can slide it through the full hue cycle. */
+      background:
+        linear-gradient(var(--pill-fill), var(--pill-fill)) padding-box,
+        var(--pill-gradient) border-box;
+      background-size: 100% 100%, 200% 100%;
+      background-position: 0 0, 0 0;
+      transition: color 0.15s, box-shadow 0.2s, transform 0.2s;
     }
     .pub-links a:hover {
-      border-color: var(--accent);
       color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 7px rgba(42, 92, 138, 0.18);
       text-decoration: none;
+      animation: pill-shift 2.4s linear infinite;
     }
  
     /* ─── Tools ─────────────────────────────────────────────── */
@@ -257,16 +351,37 @@
       gap: 8px;
     }
     .tool-links a {
+      --pill-fill: #fff;                 /* pills sit on the white .tool-card here */
       font-size: 1rem;
       padding: 3px 10px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--muted);
+      border: 1.5px solid transparent;
+      border-radius: 4px;
+      color: #4d4d49;
+      background:
+        linear-gradient(var(--pill-fill), var(--pill-fill)) padding-box,
+        var(--pill-gradient) border-box;
+      background-size: 100% 100%, 200% 100%;
+      background-position: 0 0, 0 0;
+      transition: color 0.15s, box-shadow 0.2s, transform 0.2s;
     }
     .tool-links a:hover {
-      border-color: var(--accent);
       color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 7px rgba(42, 92, 138, 0.18);
       text-decoration: none;
+      animation: pill-shift 2.4s linear infinite;
+    }
+
+    /* Slides the border gradient one full cycle to the left. */
+    @keyframes pill-shift {
+      from { background-position: 0 0,    0    0; }
+      to   { background-position: 0 0, -100% 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .social-links a:hover,
+      .pub-links a:hover,
+      .tool-links a:hover { animation: none; transform: none; }
+      .availability::before { animation: none; }
     }
  
     /* ─── Teaching ──────────────────────────────────────────── */
@@ -377,6 +492,7 @@
       .tool-card         { flex-direction: column; }
       .tool-screenshot   { width: 100%; }
       .service-item      { flex-direction: column; gap: 2px; }
+      .award-item        { flex-direction: column; gap: 2px; }
     }
   </style>
 </head>
@@ -387,6 +503,7 @@
     <div class="container">
       <a class="brand" href="#">Michael Khavkin</a>
       <a href="#publications">Publications</a>
+      <a href="#awards">Awards</a>
       <!-- <a href="#news">News</a> -->
       <a href="#tools">Tools</a>
       <a href="#service">Service</a>
@@ -409,33 +526,37 @@
         <div class="hero-text">
           <h1>👋 Hi, I am Michael Khavkin</h1>
           <p class="position">
+            Ph.D. Candidate &nbsp;·&nbsp; Usable Security and Privacy, HCI &amp; Privacy-Preserving AI
+          </p>
+
+          <p class="availability">Currently looking for postdoc positions</p>
+
           <p>
-            I am a Ph.D. candidate at the <a href="https://toch.tau.ac.il/" target="_blank">Interacting With Technology (IWiT)</a> lab in the <a href="https://en-engineering.tau.ac.il/Department-of-Industrial-Engineering/main/" target="_blank">School of Industrial & Intelligent Systems Engineering</a> at <a href="https://english.tau.ac.il/" target="_blank">Tel Aviv University</a>,
-            advised by <a href="https://toch.tau.ac.il/" target="_blank">Prof. Eran Toch</a>.
+            I am a Ph.D. candidate at the <a href="https://toch.tau.ac.il/" target="_blank">Interacting
+            With Technology (IWiT)</a> lab in the <a href="https://en-engineering.tau.ac.il/Department-of-Industrial-Engineering/main/" target="_blank">School
+            of Industrial &amp; Intelligent Systems Engineering</a> at <a href="https://english.tau.ac.il/" target="_blank">Tel
+            Aviv University</a>, advised by <a href="https://toch.tau.ac.il/" target="_blank">Prof. Eran Toch</a>.
           </p>
 
           <p>
-            My research sits at the intersection of <strong>usable privacy</strong>, <strong>human-computer interaction</strong>,
-            and <strong>privacy-preserving Machine Learning</strong>, with a focus on making <strong>privacy</strong> practical, transparent, and meaningful
-            for real users and organizations.
-            <br/>
-            I ask questions that formal privacy guarantees alone cannot answer, such as:
-            <em>How does privacy (and also differential privacy) protection shape the way people share
-            data, and how do those decisions feed back into the AI systems built on it?</em>
-            <br/>
-            In practice, this means designing interfaces and tools that communicate
-            privacy risks and guarantees to users, helping them see and control what
-            AI can infer about them, running user studies to understand privacy
-            decision-making, and analyzing how privacy is actually
-            configured in real-world deployments.
-            I combine algorithm design, quantitative experiments, and tool development
-            to bridge the gap between formal privacy guarantees and what users
-            actually need.
+            I study <strong>usable privacy</strong> at the point where formal guarantees meet
+            human decisions: how privacy protections, such as differential privacy, change what people are willing to disclose, and how those decisions feed back into
+            the data-driven systems built on them.
           </p>
 
-        <p>
-        </p>
-          
+          <div class="agenda">
+            <p class="agenda-label">Research Agenda</p>
+            <p>
+              To make privacy guarantees <em>legible</em> by building the interfaces, metrics,
+              and tools that let people and organizations see what a given protection actually
+              buys them, whether it is a formal mechanism, a system design choice, or a policy setting.
+              Specifically, I am interested in auditing how privacy protections are
+              configured in practice, measuring what people understand and choose, and designing
+              systems that make abstract guarantees concrete at the moment of decision.
+              Methodologically, I use algorithm design, quantitative user studies, and system prototypes.
+            </p>
+          </div>
+
           <div class="social-links">
             <a href="https://scholar.google.com/citations?user=scUF_rEAAAAJ&hl=en&oi=ao" target="_blank">🎓 Scholar</a>
             <a href="mailto:khavkin1@mail.tau.ac.il">✉️ Email</a>
@@ -443,6 +564,28 @@
             <a href="https://github.com/michaelkhavkin" target="_blank">👨🏻‍💻 GitHub</a>
             <!-- Add or remove social links as needed -->
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Awards ────────────────────────────────── -->
+    <section id="awards">
+      <h2>Awards</h2>
+      <div class="award-list">
+        <div class="award-item">
+          <span class="award-year">2026</span>
+          <span>
+            Ein-Dor Prize for Information Systems Research
+            &nbsp;·&nbsp; <span class="award-body"><a href="https://ilais.org.il/" target="_blank">ILAIS</a></span>
+          </span>
+        </div>
+        <div class="award-item">
+          <span class="award-year">2022</span>
+          <span>
+            Westin Scholar Award for Excellence in Privacy Research
+            &nbsp;·&nbsp; <span class="award-body"><a href="https://iapp.org/" target="_blank">International
+            Association of Privacy Professionals (IAPP)</a></span>
+          </span>
         </div>
       </div>
     </section>
@@ -470,7 +613,7 @@
             </p>
             <div class="pub-links">
               <a href="https://doi.org/10.1109/TKDE.2025.3603731" target="_blank">Paper</a>
-              <a href="https://drive.google.com/file/d/12x5AEqdckRPb6gjVyzrcsOrdT8f4mk1X/view?usp=sharing" target="_blank">Poster</a>
+              <a href="https://drive.google.com/file/d/12x5AEqdckRPb6gjVyzrcsOrdT8f4mk1X/view?usp=sharing" target="_blank">Poster at TPDP Workshop 2026</a>
             </div>
           </div>
         </div>
@@ -566,7 +709,7 @@
           <h3>Differentially Private Election Campaign Management</h3>
           <p>
               A web-based interface for managing election campaigns with differential privacy guarantees.
-              Enables campaign managers to encourage potential voters to vote and <strong>analyze voter data statistics</strong> on the election day while ensuring that individual voter information remains protected through <strong>differential privacy</strong> mechanisms.
+              Enables campaign managers to encourage potential voters to vote and to <strong>analyze voter data statistics</strong> on election day, while ensuring that individual voter information remains protected through <strong>differential privacy</strong> mechanisms.
           </p>
           <div class="tool-links">
             <a href="https://github.com/michaelkhavkin/elector-dp-app" target="_blank">Code</a>
@@ -582,10 +725,10 @@
         <img
           class="tool-screenshot"
           src="images/Explainability-FL-gradcam-screenshot1.png"
-          alt="FL-DP-XAI Viewer (Explainability in Differential Private Federated Learning)"/>
+          alt="FL-DP-XAI Viewer (Explainability in Differentially Private Federated Learning)"/>
         <div class="tool-info">
           <!-- Replace the name and description below with your own -->
-          <h3>FL-DP-XAI Viewer (Explainability in Differential Private Federated Learning)</h3>
+          <h3>FL-DP-XAI Viewer (Explainability in Differentially Private Federated Learning)</h3>
           <p>
               An interactive visualization tool for exploring the trade-off between
               <strong>differential privacy</strong> and <strong>explainability</strong> in federated image classifiers.
@@ -640,9 +783,10 @@
         </div>
          <div class="service-item">
           <span class="service-role">Reviewer</span>
-          <a href="https://icml.cc/Conferences/2024" target="_blank">ICML 2024</a>,
-          <a href="https://chi2023.acm.org/" target="_blank">CHI 2023</a>,
-          <a href="https://www.sciencedirect.com/journal/journal-of-information-security-and-applications/vol/40/suppl/C" target="_blank">JISA 2018</a>
+          <span>
+            <a href="https://icml.cc/Conferences/2024" target="_blank">ICML 2024</a>,
+            <a href="https://chi2023.acm.org/" target="_blank">CHI 2023</a>,
+            <a href="https://www.sciencedirect.com/journal/journal-of-information-security-and-applications/vol/40/suppl/C" target="_blank">JISA 2018</a>
           </span>
         </div>
         <!-- Add more service items here as needed -->
@@ -742,5 +886,17 @@
     </div>
   </footer>
  
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    document.getElementById("year").textContent
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* Month + year of the most recent deploy, e.g. "August 2026". */
+    document.getElementById("last-updated").textContent =
+      new Date(document.lastModified).toLocaleDateString("en-US", {
+        month: "long",
+        year:  "numeric",
+      });
+  </script>
+
+</body>
+</html>
