@@ -186,6 +186,8 @@
       margin-bottom: 5px;
     }
     .hero-text .agenda p:last-child { margin-bottom: 0; }
+    /* The two enumerated lines sit closer together so they read as a pair. */
+    .hero-text .agenda .agenda-line { margin-bottom: 8px; }
 
     /* ─── Awards ────────────────────────────────────────────── */
     .award-list {
@@ -539,21 +541,34 @@
           </p>
 
           <p>
-            I study <strong>usable privacy</strong> at the point where formal guarantees meet
-            human decisions: how privacy protections, such as differential privacy, change what people are willing to disclose, and how those decisions feed back into
-            the data-driven systems built on them.
+            I study <strong>usable privacy</strong> where privacy technology meets human
+            decisions: how protections change what people are willing to disclose, and how much
+            people can see of what a system has already learned about them.
           </p>
 
           <div class="agenda">
             <p class="agenda-label">Research Agenda</p>
             <p>
-              To make privacy guarantees <em>legible</em> by building the interfaces, metrics,
-              and tools that let people and organizations see what a given protection actually
-              buys them, whether it is a formal mechanism, a system design choice, or a policy setting.
-              Specifically, I am interested in auditing how privacy protections are
-              configured in practice, measuring what people understand and choose, and designing
-              systems that make abstract guarantees concrete at the moment of decision.
-              Methodologically, I use algorithm design, quantitative user studies, and system prototypes.
+              To align the data practices of computing systems with the <strong>privacy
+              preferences</strong> of the people they affect, in a setting where protection is
+              uneven and what counts as adequate differs across people and across systems, from
+              social media platforms to national censuses. This requires both seeing what a system
+              does with personal data and being able to tune it, which defines two lines of inquiry.
+            </p>
+            <p class="agenda-line">
+              (1) Where the information flow is <em>specified in advance</em>, as with
+              <strong>differential privacy</strong>, I examine how protections are configured in
+              practice and how their parameters can be elicited and tuned so that the
+              privacy-utility trade-off people are handed matches the one they would choose.
+            </p>
+            <p class="agenda-line">
+              (2) Where the flow <em>emerges during use</em>, as in <strong>LLM-based systems</strong>,
+              users cannot yet see what has been disclosed, inferred, or retrieved about them,
+              and I develop <strong>interactive explainability</strong> mechanisms that
+              make those flows visible enough to act on.
+            </p>
+            <p>
+              Methodologically, I use algorithm design, quantitative and qualitative user studies, and system prototypes.
             </p>
           </div>
 
